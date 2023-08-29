@@ -1,9 +1,9 @@
-type PathObject = {
+type PathObj = {
     type: "ABSOLUTE" | "RELATIVE";
     path: string;
 };
 
 export type DeployNextAppConfig = {
-    NextBuildPath: PathObject | string;
-    TargetRepoPath: PathObject | string;
+    BuildFolder: PathObj;
+    TargetRepo: PathObj;
 };

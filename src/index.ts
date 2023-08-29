@@ -1,2 +1,2 @@
-export { deployNextApp } from "./deploy";
-export { DeployNextAppConfig } from "./types";
+// export { deployNextApp } from "./deploy";
+// export { DeployNextAppConfig } from "./types";
