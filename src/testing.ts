@@ -16,10 +16,10 @@ Copyright (c) 2023 - Kartavya Patel.
 deployNextApp({
     BuildFolder: {
         type: "RELATIVE",
-        path: "run.sh",
+        path: "./",
     },
     TargetRepo: {
-        type: "ABSOLUTE",
-        path: "",
+        type: "RELATIVE",
+        path: "./",
     },
 });

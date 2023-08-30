@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "run": "sh run.sh"
+    "build-n-run": "sh run.sh"
   },
   "repository": {
     "type": "git",
