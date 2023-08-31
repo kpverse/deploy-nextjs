@@ -1,34 +1,42 @@
-import { join, resolve } from "path";
-import { DeployNextAppConfig } from "./types";
-import { isDir } from "./fileType";
 import chalk from "chalk";
+import { getConfiguration } from "./configuration";
+import { clearFolderContent } from "./clearFolderContent";
+import { copyFolderContent } from "./copyFolderContent";
+import { askQuestion } from "./askQuestion";
+import { isFile } from "./fileType";
+import { join } from "path";
+import { writeFileSync } from "fs";
 
-const CURRENT_PATH = resolve("./");
+export async function deployNextApp() {
+    let configuration = getConfiguration();
 
-export function deployNextApp(config: DeployNextAppConfig) {
-    let { BuildFolder, TargetRepo } = config;
-
-    if (BuildFolder.type === "RELATIVE")
-        BuildFolder.path = resolve(CURRENT_PATH, BuildFolder.path);
-
-    const BuildFolderPath = BuildFolder.path;
-
-    if (!isDir(BuildFolderPath)) {
-        console.log(
-            `"${BuildFolderPath}"` + chalk.red(" is not a folder") + "."
-        );
+    if (!configuration) {
+        console.log(chalk.red("ERROR: ") + "Configuration not provided");
         process.exit();
     }
 
-    if (TargetRepo.type === "RELATIVE")
-        TargetRepo.path = resolve(CURRENT_PATH, TargetRepo.path);
+    let { BuildFolderPath, TargetRepoPath } = configuration;
 
-    const TargetRepoPath = TargetRepo.path;
+    await clearFolderContent(TargetRepoPath, [".git"]);
+    await copyFolderContent(BuildFolderPath, TargetRepoPath);
 
-    if (!isDir(TargetRepoPath) || !isDir(join(TargetRepoPath, ".git"))) {
+    // Create ".nojekyll" file if it doesn't exist.
+    if (!isFile(join(TargetRepoPath, ".nojekyll"))) {
+        writeFileSync(join(TargetRepoPath, ".nojekyll"), "");
+
+        let MORE_INFO = `It is necessary for hosting Next.js app on GitHub Pages. Read more: "${chalk.blueBright(
+            "https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/"
+        )}".`;
+
         console.log(
-            `"${TargetRepoPath}"` + chalk.red(" is not a repository") + "."
+            chalk.green('".nojekyll" file created at') +
+                ` "${TargetRepoPath}". ${MORE_INFO}`
         );
-        process.exit();
     }
+
+    // Ask if user want to perform git push.
+    await askQuestion("Push to the remote repository?", "NO");
+
+    console.log("done");
+    process.exit();
 }

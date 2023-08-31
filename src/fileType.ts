@@ -2,7 +2,7 @@ import { PathLike, statSync } from "fs";
 import { checkIfPathExists } from "./checkIfPathExists";
 
 export function isFileOrDir(path: PathLike) {
-    checkIfPathExists(path);
+    if (!checkIfPathExists(path)) return;
 
     let stat = statSync(path);
 
@@ -13,11 +13,11 @@ export function isFileOrDir(path: PathLike) {
 }
 
 export function isFile(path: PathLike) {
-    checkIfPathExists(path);
+    if (!checkIfPathExists(path)) return;
     return isFileOrDir(path) === "FILE";
 }
 
 export function isDir(path: PathLike) {
-    checkIfPathExists(path);
+    if (!checkIfPathExists(path)) return;
     return isFileOrDir(path) === "DIR";
 }
