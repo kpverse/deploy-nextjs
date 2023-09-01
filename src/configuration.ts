@@ -1,7 +1,6 @@
 import { join, resolve } from "path";
 import { DeployNextAppConfig } from "./types";
 import { isDir } from "./fileType";
-import chalk from "chalk";
 
 export let configuration: {
     BuildFolderPath: string;
@@ -12,7 +11,7 @@ export function getConfiguration() {
     return configuration !== undefined ? configuration : undefined;
 }
 
-const CURRENT_PATH = resolve("./");
+export const CURRENT_PATH = resolve("./");
 
 export function configure(config: DeployNextAppConfig) {
     let { BuildFolder, TargetRepo } = config;
@@ -28,10 +27,7 @@ export function configure(config: DeployNextAppConfig) {
     // If build folder path is not a folder, exit the process.
     if (!isDir(configuration.BuildFolderPath)) {
         console.log(
-            chalk.red("ERROR: ") +
-                `Build folder path, "${configuration.BuildFolderPath}" ` +
-                chalk.yellow("is not a folder") +
-                "."
+            `ERROR: Build folder path, "${configuration.BuildFolderPath}", is not a folder.`
         );
         process.exit();
     }
@@ -44,10 +40,7 @@ export function configure(config: DeployNextAppConfig) {
     // If target folder path is not a folder, exit the process.
     if (!isDir(configuration.TargetRepoPath)) {
         console.log(
-            chalk.red("ERROR: ") +
-                `Target repository path, "${configuration.TargetRepoPath}" ` +
-                chalk.yellow("is not a folder") +
-                "."
+            `ERROR: Target repository path, "${configuration.TargetRepoPath}" is not a folder .`
         );
         process.exit();
     }
@@ -55,10 +48,7 @@ export function configure(config: DeployNextAppConfig) {
     // If target folder is not a repository, exit the process.
     if (!isDir(join(configuration.TargetRepoPath, ".git"))) {
         console.log(
-            chalk.red("ERROR: ") +
-                `Target repository path, "${configuration.TargetRepoPath}" ` +
-                chalk.yellow("is not a repository") +
-                "."
+            `ERROR: Target repository path, "${configuration.TargetRepoPath}" is not a repository.`
         );
         process.exit();
     }
@@ -66,10 +56,7 @@ export function configure(config: DeployNextAppConfig) {
     // If build folder path and target repository path are same, exit the process.
     if (configuration.BuildFolderPath === configuration.TargetRepoPath) {
         console.log(
-            chalk.red("ERROR: ") +
-                "Build folder path and target repository path " +
-                chalk.yellow("can not be same") +
-                "."
+            `ERROR: Build folder path and target repository path can not be same.`
         );
         process.exit();
     }
