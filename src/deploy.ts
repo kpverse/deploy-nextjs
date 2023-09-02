@@ -1,11 +1,11 @@
 import { execSync } from "child_process";
 import { readdirSync, writeFileSync } from "fs";
 import { join } from "path";
-import { askQuestion, readline } from "./askQuestion";
-import { clearFolderContent } from "./clearFolderContent";
-import { getConfiguration, CURRENT_PATH } from "./configuration";
-import { copyFolderContent } from "./copyFolderContent";
-import { isFile } from "./fileType";
+import { askQuestion, readline } from "./command-line-utility/askQuestion";
+import { CURRENT_PATH, getConfiguration } from "./configuration";
+import { clearFolderContent } from "./file-utilities/clearFolderContent";
+import { copyFolderContent } from "./file-utilities/copyFolderContent";
+import { isFile } from "./file-utilities/fileType";
 import { VERSION } from "./metadata";
 
 export async function deployNextApp() {

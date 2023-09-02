@@ -1,7 +1,7 @@
 import { config } from "dotenv";
-import { configure } from "./configuration";
-import { deployNextApp } from "./deploy";
-import { VERSION } from "./metadata";
+import { configure } from "../configuration";
+import { deployNextApp } from "../deploy";
+import { VERSION } from "../metadata";
 
 console.log(`
 deploy-next-app v${VERSION} from KPVERSE (https://kpverse.in)

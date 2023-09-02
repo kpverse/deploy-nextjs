@@ -1,6 +1,6 @@
 import { join, resolve } from "path";
+import { isDir } from "./file-utilities/fileType";
 import { DeployNextAppConfig } from "./types";
-import { isDir } from "./fileType";
 
 export let configuration: {
     BuildFolderPath: string;
