@@ -59,7 +59,12 @@ export async function deployNextApp() {
         console.log("\nBuilding Next.js app...");
         let build_output = execSync("npm run build");
         console.log("\n" + build_output.toString());
-    } catch (error) {}
+    } catch (error) {
+        console.log(
+            "\nMake sure to run this command from the root of Next.js app's repository."
+        );
+        process.exit();
+    }
 
     await clearFolderContent(TargetRepoPath, [".git"]);
     await copyFolderContent(BuildFolderPath, TargetRepoPath);
