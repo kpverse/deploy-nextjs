@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "build-n-run": "sh build-n-run.sh",
     "build": "sh build.sh"

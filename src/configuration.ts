@@ -5,6 +5,8 @@ import { DeployNextAppConfig } from "./types";
 export let configuration: {
     BuildFolderPath: string;
     TargetRepoPath: string;
+    askBeforeCommit: boolean;
+    askToChangeEnvVariables: boolean;
 };
 
 export function getConfiguration() {
@@ -14,13 +16,23 @@ export function getConfiguration() {
 export const CURRENT_PATH = resolve("./");
 
 export function configure(config: DeployNextAppConfig) {
-    let { BuildFolder, TargetRepo } = config;
+    let { BuildFolder, TargetRepo, askBeforeCommit, askToChangeEnvVariables } =
+        config;
 
     if (BuildFolder.type === "RELATIVE")
         BuildFolder.path = resolve(CURRENT_PATH, BuildFolder.path);
 
     if (!configuration)
-        configuration = { BuildFolderPath: "", TargetRepoPath: "" };
+        configuration = {
+            BuildFolderPath: "",
+            TargetRepoPath: "",
+            askBeforeCommit:
+                askBeforeCommit === undefined ? true : askBeforeCommit,
+            askToChangeEnvVariables:
+                askToChangeEnvVariables === undefined
+                    ? true
+                    : askToChangeEnvVariables,
+        };
 
     configuration.BuildFolderPath = BuildFolder.path;
 

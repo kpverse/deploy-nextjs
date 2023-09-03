@@ -6,7 +6,9 @@ config();
 export default [
     {
         input: `./build/converted/${
-            process.env.DEVELOPMENT_MODE === "true" ? "testing.js" : "index.js"
+            process.env.DEVELOPMENT_MODE === "true"
+                ? "__tests__/index.test.js"
+                : "index.js"
         }`,
         output: {
             file: "./build/index.js",

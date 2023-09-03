@@ -6,4 +6,6 @@ type PathObj = {
 export type DeployNextAppConfig = {
     BuildFolder: PathObj;
     TargetRepo: PathObj;
+    askBeforeCommit?: boolean;
+    askToChangeEnvVariables?: boolean;
 };
