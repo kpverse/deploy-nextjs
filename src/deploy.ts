@@ -13,7 +13,7 @@ export async function deployNextApp() {
 
     if (!configuration) {
         readline.close();
-        throw Error(`Configuration not provided`);
+        throw Error("Configuration not provided.");
     }
 
     let {
@@ -48,7 +48,7 @@ export async function deployNextApp() {
 
             if (decision === "y") {
                 console.log(
-                    `\nPlease re-run previous command, after you change environment variables.`
+                    "\nPlease re-run previous command, after you change environment variables."
                 );
                 readline.close();
                 process.exit();
@@ -59,7 +59,7 @@ export async function deployNextApp() {
     try {
         console.log("\nBuilding Next.js app...");
         let build_output = execSync("npm run build");
-        console.log("\n" + build_output.toString());
+        console.log(`\n${build_output.toString()}`);
     } catch (error) {
         readline.close();
         throw Error(
@@ -74,30 +74,39 @@ export async function deployNextApp() {
     if (!isFile(join(TargetRepoPath, ".nojekyll"))) {
         writeFileSync(join(TargetRepoPath, ".nojekyll"), "");
 
-        let MORE_INFO = `It is necessary for hosting Next.js app on GitHub Pages. Read more: "https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/".`;
+        let MORE_INFO =
+            'It is necessary for hosting Next.js app on GitHub Pages. Read more: "https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/".';
 
         console.log(
-            '".nojekyll" file created at' + ` "${TargetRepoPath}". ${MORE_INFO}`
+            `\n".nojekyll" file created at "${TargetRepoPath}". ${MORE_INFO}`
         );
     }
 
     console.log(`\nNext.js build folder is copied to "${TargetRepoPath}".`);
 
-    let decision;
+    let pursh_to_remote_decision;
 
     if (askBeforeCommit) {
         // Ask if user want to perform git push.
-        decision = (
+        pursh_to_remote_decision = (
             await askQuestion("Push changes to the remote repository? [y|n]: ")
         ).toLowerCase();
 
-        while (!["y", "n"].includes(decision))
-            decision = (
+        while (!["y", "n"].includes(pursh_to_remote_decision))
+            pursh_to_remote_decision = (
                 await askQuestion('Enter "y" or "n" only: ')
             ).toLowerCase();
+
+        if (pursh_to_remote_decision === "n")
+            console.log(
+                `\nRepository "${TargetRepoPath}" is ready for manual commit.`
+            );
     }
 
-    if ((decision === "y" && askBeforeCommit) || !askBeforeCommit) {
+    if (
+        !askBeforeCommit ||
+        (askBeforeCommit && pursh_to_remote_decision === "y")
+    ) {
         let command = [
             `cd ${TargetRepoPath}`,
             "git add .",
@@ -107,19 +116,14 @@ export async function deployNextApp() {
 
         try {
             let output = execSync(command);
-            console.log(`${output}\n\n✨ Done`);
+            console.log(`\n${output}\n\n✨ Done`);
         } catch (error) {
-            console.log(error);
+            console.log(`\n${error}`);
         }
     }
 
-    if (decision === "n" && askBeforeCommit)
-        console.log(
-            `\nRepository "${TargetRepoPath}" is ready for manual commit.`
-        );
-
     console.log(
-        `\nThank you for using "deploy-next-app". Report issues at "https://github.com/kpverse/deploy-next-app/issues/new".\n`
+        '\nThank you for using "deploy-next-app". Report issues at "https://github.com/kpverse/deploy-next-app/issues/new".\n'
     );
     readline.close();
     process.exit();

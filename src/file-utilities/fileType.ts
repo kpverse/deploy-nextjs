@@ -10,7 +10,7 @@ export function isFileOrDir(path: PathLike) {
         if (stat.isDirectory()) return "DIR";
         else if (stat.isFile()) return "FILE";
     } catch (error) {
-        console.log(error);
+        console.log(`\n${error}`);
     }
 }
 

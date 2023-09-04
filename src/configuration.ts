@@ -65,7 +65,7 @@ export function configure(config: DeployNextAppConfig) {
     // If build folder path and target repository path are same, exit the process.
     if (configuration.BuildFolderPath === configuration.TargetRepoPath) {
         throw Error(
-            `Build folder path and target repository path can not be same.`
+            "Build folder path and target repository path can not be same."
         );
     }
 }

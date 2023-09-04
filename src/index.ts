@@ -4,7 +4,6 @@ export { DeployNextAppConfig } from "./types";
 
 import { VERSION } from "./metadata";
 
-console.log(`
-deploy-next-app v${VERSION} from KPVERSE (https://kpverse.in)
-Copyright (c) 2023 - Kartavya Patel.
-`);
+console.log(
+    `\ndeploy-next-app v${VERSION} from KPVERSE (https://kpverse.in)\nCopyright (c) 2023 - Kartavya Patel.\n`
+);
