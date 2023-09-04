@@ -1,12 +1,5 @@
 import { config } from "dotenv";
-import { configure } from "../configuration";
-import { deployNextApp } from "../deploy";
-import { VERSION } from "../metadata";
-
-console.log(`
-deploy-next-app v${VERSION} from KPVERSE (https://kpverse.in)
-Copyright (c) 2023 - Kartavya Patel.
-`);
+import { configure, deployNextApp } from "../index";
 
 config();
 
@@ -23,6 +16,7 @@ configure({
             ? process.env.TARGET_REPO_PATH
             : "./",
     },
+    // askBeforeCommit: false,
 });
 
 deployNextApp();

@@ -38,10 +38,9 @@ export function configure(config: DeployNextAppConfig) {
 
     // If build folder path is not a folder, exit the process.
     if (!isDir(configuration.BuildFolderPath)) {
-        console.log(
-            `ERROR: Build folder path, "${configuration.BuildFolderPath}", is not a folder.`
+        throw Error(
+            `Build folder path, "${configuration.BuildFolderPath}", is not a folder.`
         );
-        process.exit();
     }
 
     if (TargetRepo.type === "RELATIVE")
@@ -51,25 +50,22 @@ export function configure(config: DeployNextAppConfig) {
 
     // If target folder path is not a folder, exit the process.
     if (!isDir(configuration.TargetRepoPath)) {
-        console.log(
-            `ERROR: Target repository path, "${configuration.TargetRepoPath}" is not a folder .`
+        throw Error(
+            `Target repository path, "${configuration.TargetRepoPath}" is not a folder .`
         );
-        process.exit();
     }
 
     // If target folder is not a repository, exit the process.
     if (!isDir(join(configuration.TargetRepoPath, ".git"))) {
-        console.log(
-            `ERROR: Target repository path, "${configuration.TargetRepoPath}" is not a repository.`
+        throw Error(
+            `Target repository path, "${configuration.TargetRepoPath}" is not a repository.`
         );
-        process.exit();
     }
 
     // If build folder path and target repository path are same, exit the process.
     if (configuration.BuildFolderPath === configuration.TargetRepoPath) {
-        console.log(
-            `ERROR: Build folder path and target repository path can not be same.`
+        throw Error(
+            `Build folder path and target repository path can not be same.`
         );
-        process.exit();
     }
 }

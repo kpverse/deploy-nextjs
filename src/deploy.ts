@@ -12,8 +12,8 @@ export async function deployNextApp() {
     let configuration = getConfiguration();
 
     if (!configuration) {
-        console.log(`ERROR: Configuration not provided`);
-        process.exit();
+        readline.close();
+        throw Error(`Configuration not provided`);
     }
 
     let {
@@ -50,6 +50,7 @@ export async function deployNextApp() {
                 console.log(
                     `\nPlease re-run previous command, after you change environment variables.`
                 );
+                readline.close();
                 process.exit();
             }
         }
@@ -60,10 +61,10 @@ export async function deployNextApp() {
         let build_output = execSync("npm run build");
         console.log("\n" + build_output.toString());
     } catch (error) {
-        console.log(
+        readline.close();
+        throw Error(
             "\nMake sure to run this command from the root of Next.js app's repository."
         );
-        process.exit();
     }
 
     await clearFolderContent(TargetRepoPath, [".git"]);
@@ -82,9 +83,11 @@ export async function deployNextApp() {
 
     console.log(`\nNext.js build folder is copied to "${TargetRepoPath}".`);
 
+    let decision;
+
     if (askBeforeCommit) {
         // Ask if user want to perform git push.
-        let decision = (
+        decision = (
             await askQuestion("Push changes to the remote repository? [y|n]: ")
         ).toLowerCase();
 
@@ -92,25 +95,25 @@ export async function deployNextApp() {
             decision = (
                 await askQuestion('Enter "y" or "n" only: ')
             ).toLowerCase();
+    }
 
-        if (decision === "y") {
-            let command = [
-                `cd ${TargetRepoPath}`,
-                "git add .",
-                `git commit -m "Auto-commit by deploy-next-app v${VERSION}"`,
-                "git push",
-            ].join(" && ");
+    if ((decision === "y" && askBeforeCommit) || !askBeforeCommit) {
+        let command = [
+            `cd ${TargetRepoPath}`,
+            "git add .",
+            `git commit -m "Auto-commit by deploy-next-app v${VERSION}"`,
+            "git push",
+        ].join(" && ");
 
-            try {
-                let output = execSync(command);
+        try {
+            let output = execSync(command);
+            console.log(`${output}\n\n✨ Done`);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-                console.log(`${output}\n\n✨ Done`);
-            } catch (error) {}
-        } else if (decision === "n")
-            console.log(
-                `\nRepository "${TargetRepoPath}" is ready for manual commit.`
-            );
-    } else
+    if (decision === "n" && askBeforeCommit)
         console.log(
             `\nRepository "${TargetRepoPath}" is ready for manual commit.`
         );
