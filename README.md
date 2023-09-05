@@ -10,4 +10,4 @@ An NPM package that automates Next.js app deployment on GitHub Pages.
 
 ## Status:
 
-Currently in testing. Release coming soon.
+Currently in development.

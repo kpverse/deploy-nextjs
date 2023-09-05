@@ -3,7 +3,7 @@ type PathObj = {
     path: string;
 };
 
-export type DeployNextAppConfig = {
+export type NextDeployConfig = {
     BuildFolder: PathObj;
     TargetRepo: PathObj;
     askBeforeCommit?: boolean;

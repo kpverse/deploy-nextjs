@@ -19,7 +19,7 @@ export default [
  * Copyright (c) 2023 - Kartavya Patel.
  */`,
         },
-        external: ["path", "fs"],
+        external: ["chalk"],
     },
     {
         input: "./src/index.ts",

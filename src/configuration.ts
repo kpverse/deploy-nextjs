@@ -1,6 +1,6 @@
 import { join, resolve } from "path";
 import { isDir } from "./file-utilities/fileType";
-import { DeployNextAppConfig } from "./types";
+import { NextDeployConfig } from "./types";
 
 export let configuration: {
     BuildFolderPath: string;
@@ -15,7 +15,7 @@ export function getConfiguration() {
 
 export const CURRENT_PATH = resolve("./");
 
-export function configure(config: DeployNextAppConfig) {
+export function configure(config: NextDeployConfig) {
     let { BuildFolder, TargetRepo, askBeforeCommit, askToChangeEnvVariables } =
         config;
 
@@ -37,11 +37,15 @@ export function configure(config: DeployNextAppConfig) {
     configuration.BuildFolderPath = BuildFolder.path;
 
     // If build folder path is not a folder, exit the process.
-    if (!isDir(configuration.BuildFolderPath)) {
+    let buildFolderPathStatus = isDir(configuration.BuildFolderPath);
+    if (buildFolderPathStatus === undefined)
+        throw Error(
+            `Build folder path, "${configuration.BuildFolderPath}", does not exist.`
+        );
+    else if (!buildFolderPathStatus)
         throw Error(
             `Build folder path, "${configuration.BuildFolderPath}", is not a folder.`
         );
-    }
 
     if (TargetRepo.type === "RELATIVE")
         TargetRepo.path = resolve(CURRENT_PATH, TargetRepo.path);
