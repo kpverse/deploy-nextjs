@@ -1,5 +1,5 @@
 {
-  "name": "deploy-next-app",
+  "name": "next-deploy",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kpverse/deploy-next-app.git"
+    "url": "git+https://github.com/kpverse/next-deploy.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kpverse/deploy-next-app/issues"
+    "url": "https://github.com/kpverse/next-deploy/issues"
   },
-  "homepage": "https://github.com/kpverse/deploy-next-app#readme",
+  "homepage": "https://github.com/kpverse/next-deploy#readme",
   "devDependencies": {
     "@types/node": "^20.5.6",
     "dotenv": "^16.3.1",

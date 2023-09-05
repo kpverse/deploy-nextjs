@@ -110,7 +110,7 @@ export async function deployNextApp() {
         let command = [
             `cd ${TargetRepoPath}`,
             "git add .",
-            `git commit -m "Auto-commit by deploy-next-app v${VERSION}"`,
+            `git commit -m "Auto-commit by next-deploy v${VERSION}"`,
             "git push",
         ].join(" && ");
 
@@ -123,7 +123,7 @@ export async function deployNextApp() {
     }
 
     console.log(
-        '\nThank you for using "deploy-next-app". Report issues at "https://github.com/kpverse/deploy-next-app/issues/new".\n'
+        '\nThank you for using "next-deploy". Report issues at "https://github.com/kpverse/next-deploy/issues/new".\n'
     );
     readline.close();
     process.exit();

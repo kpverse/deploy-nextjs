@@ -14,7 +14,7 @@ export default [
             file: "./build/index.js",
             format: "cjs",
             banner: `/**
- * deploy-next-app v0.1.0 from KPVERSE (https://kpverse.in)
+ * next-deploy v0.1.0 from KPVERSE (https://kpverse.in)
  *
  * Copyright (c) 2023 - Kartavya Patel.
  */`,
