@@ -1,12 +1,11 @@
-const { config } = require("dotenv");
-
-config();
-
-/** @type {import('./src').NextDeployConfig} */
+/** @type {import("@kpverse/next-deploy").NextDeployConfig} */
 const nextDeployConfig = {
-    BuildFolder: {
-        path: process.env.TARGET_REPO_PATH,
+    TargetRepoPath: {
+        type: "RELATIVE",
+        path: "<TARGET_REPO_PATH>",
     },
+    // askBeforeCommit: true,
+    // askToChangeEnvVariables: true,
 };
 
 module.exports = nextDeployConfig;

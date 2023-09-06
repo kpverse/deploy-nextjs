@@ -4,8 +4,8 @@ type PathObj = {
 };
 
 export type NextDeployConfig = {
-    BuildFolder: PathObj;
-    TargetRepo: PathObj;
+    TargetRepoPath: PathObj;
+    BuildFolderPath?: PathObj;
     askBeforeCommit?: boolean;
     askToChangeEnvVariables?: boolean;
 };

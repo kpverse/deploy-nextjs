@@ -1,26 +1,22 @@
-// export { configure } from "./configuration";
-// export { deployNextApp } from "./deploy";
 import { NextDeployConfig } from "./types";
-export { NextDeployConfig };
-
 import chalk from "chalk";
 import { VERSION } from "./metadata";
-import { resolve } from "path";
+import { configFileUtility } from "./file-utilities/configFileUtility";
 
 async function main() {
     console.log(
-        `\nnext-deploy ${chalk.blueBright(
-            `v${VERSION}`
-        )} from ${chalk.blueBright(
+        `
+next-deploy ${chalk.blueBright(`v${VERSION}`)} from ${chalk.blueBright(
             "KPVERSE (https://kpverse.in)"
-        )}.\nCopyright (c) 2023 - Kartavya Patel.\n`
+        )}.
+Copyright (c) 2023 - Kartavya Patel.`
     );
 
-    let nextDeployConfig: NextDeployConfig = (
-        await import(resolve("./next-deploy.config.js"))
-    ).default;
+    let configuration = await configFileUtility();
 
-    console.log(nextDeployConfig.BuildFolder.path);
+    console.log(configuration);
 }
 
 main();
+
+export { NextDeployConfig };

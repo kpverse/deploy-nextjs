@@ -1,7 +1,8 @@
-import { PathLike, statSync } from "fs";
+import { statSync } from "fs";
 import { checkIfPathExists } from "./checkIfPathExists";
+import { join, resolve } from "path";
 
-export function isFileOrDir(path: PathLike) {
+export function isFileOrDir(path: string) {
     if (!checkIfPathExists(path)) return;
 
     let stat = statSync(path);
@@ -14,12 +15,17 @@ export function isFileOrDir(path: PathLike) {
     }
 }
 
-export function isFile(path: PathLike) {
+export function isFile(path: string) {
     if (!checkIfPathExists(path)) return;
     return isFileOrDir(path) === "FILE";
 }
 
-export function isDir(path: PathLike) {
+export function isDir(path: string) {
     if (!checkIfPathExists(path)) return;
     return isFileOrDir(path) === "DIR";
+}
+
+export function isRepo(path: string) {
+    if (!checkIfPathExists(path)) return;
+    return !checkIfPathExists(join(path, ".git"));
 }
