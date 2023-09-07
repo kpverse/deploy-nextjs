@@ -1,26 +1,35 @@
 {
   "name": "@kpverse/deploy-nextjs",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Automate NextJS deployment on GitHub Pages",
+  "main": "bin/index.js",
+  "types": "types/index.d.ts",
   "bin": {
-    "deploy-nextjs": "./bin/index.js"
+    "deploy-nextjs": "bin/index.js"
   },
   "scripts": {
-    "build-n-run": "sh build-n-run.sh",
+    "build-and-run": "sh build-and-run.sh",
     "build": "sh build.sh"
   },
+  "files": [
+    "bin/index.js",
+    "types/index.d.ts"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kpverse/deploy-nextjs.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "KPVERSE",
+    "Automation",
+    "NextJS"
+  ],
+  "author": "Kartavya Patel <patelka2211@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kpverse/deploy-nextjs/issues"
   },
-  "homepage": "https://github.com/kpverse/deploy-nextjs#readme",
+  "homepage": "https://kpverse.in/deploy-nextjs",
   "devDependencies": {
     "@types/node": "^20.5.6",
     "dotenv": "^16.3.1",
