@@ -5,26 +5,24 @@ config();
 
 export default [
     {
-        input: `./build/converted/${
-            process.env.DEVELOPMENT_MODE === "true"
-                ? "__tests__/index.test.js"
-                : "index.js"
-        }`,
+        input: "./build/index.js",
         output: {
-            file: "./build/index.js",
+            file: "./bin/index.js",
             format: "cjs",
-            banner: `/**
- * next-deploy v0.1.0 from KPVERSE (https://kpverse.in)
+            banner: `#!/usr/bin/env node
+
+/**
+ * deploy-nextjs v0.1.0 from KPVERSE (https://kpverse.in)
  *
  * Copyright (c) 2023 - Kartavya Patel.
  */`,
         },
-        external: ["chalk", "fs", "path"],
+        external: ["chalk", "fs", "path", "readline", "child_process"],
     },
     {
         input: "./src/index.ts",
         output: {
-            file: "./build/index.d.ts",
+            file: "./types/index.d.ts",
             format: "es",
         },
         plugins: [dts()],

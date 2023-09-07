@@ -6,4 +6,8 @@ node_modules
 
 build
 
-next-deploy.config.test.js
+bin
+
+types
+
+deploy-nextjs.config.test.js

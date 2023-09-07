@@ -1,6 +1,6 @@
 import { statSync } from "fs";
+import { join } from "path";
 import { checkIfPathExists } from "./checkIfPathExists";
-import { join, resolve } from "path";
 
 export function isFileOrDir(path: string) {
     if (!checkIfPathExists(path)) return;
@@ -25,7 +25,9 @@ export function isDir(path: string) {
     return isFileOrDir(path) === "DIR";
 }
 
-export function isRepo(path: string) {
-    if (!checkIfPathExists(path)) return;
-    return !checkIfPathExists(join(path, ".git"));
+export function isRepo(dirPath: string) {
+    if (!checkIfPathExists(dirPath)) return;
+    return (
+        checkIfPathExists(join(dirPath, ".git")) && isDir(join(dirPath, ".git"))
+    );
 }
