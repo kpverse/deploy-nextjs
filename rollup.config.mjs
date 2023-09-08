@@ -8,7 +8,7 @@ export default [
         input: "./build/index.js",
         output: {
             file: "./bin/index.js",
-            format: "cjs",
+            format: "esm",
             banner: `#!/usr/bin/env node
 
 /**

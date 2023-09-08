@@ -32,7 +32,7 @@ export async function configFileUtility() {
 
     if (DeploymentRepoPath === undefined) {
         console.log(
-            `\n${chalk.red("ERROR:")} No "${chalk.blueBright(
+            `\n${chalk.red("ERROR:")} No "${chalk.blue(
                 "DeploymentRepoPath"
             )}" property provided in "${chalk.greenBright(configFilePath)}".`
         );
@@ -56,7 +56,7 @@ export async function configFileUtility() {
                 console.log(
                     `\n${chalk.yellowBright(
                         "ATTENTION REQUIRED:"
-                    )} Considering ${chalk.blueBright(
+                    )} Considering ${chalk.blue(
                         newPath
                     )} as default build folder path. You can change it in config file (${chalk.greenBright(
                         configFilePath
