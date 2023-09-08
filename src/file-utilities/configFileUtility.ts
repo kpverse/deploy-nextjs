@@ -12,7 +12,7 @@ export async function configFileUtility() {
     if (!fileExists) {
         writeFileSync(
             configFilePath,
-            '/** @type {import("@kpverse/deploy-nextjs").NextDeployConfig} */\nconst nextDeployConfig = {\n    BuildFolderPath: {\n        type: "RELATIVE",\n        path: "./out",\n    },\n    // DeploymentRepoPath: {\n    //     type: "RELATIVE",\n    //     path: "<TARGET_REPO_PATH>",\n    // },\n    // askBeforeCommit: true,\n    // askToChangeEnvVariables: true,\n};\n\nmodule.exports = nextDeployConfig;'
+            '/** @type {import("@kpverse/deploy-nextjs").NextDeployConfig} */\nmodule.exports = {\n    BuildFolderPath: {\n        type: "RELATIVE",\n        path: "./out",\n    },\n    // DeploymentRepoPath: {\n    //     type: "RELATIVE",\n    //     path: "<TARGET_REPO_PATH>",\n    // },\n    // askBeforeCommit: true,\n    // askToChangeEnvVariables: true,\n};'
         );
 
         console.log(
