@@ -14,7 +14,7 @@ import { NextDeployConfig } from "./types";
 
 (async function () {
     console.log(
-        `\ndeploy-nextjs v${VERSION} from ${chalk.blueBright(
+        `\ndeploy-nextjs v${VERSION} from ${chalk.blue(
             "KPVERSE (https://kpverse.in)"
         )}.\nCopyright (c) 2023 - Kartavya Patel.`
     );
@@ -32,7 +32,7 @@ import { NextDeployConfig } from "./types";
     if (!BuildFolderPathStatus) {
         let answer = (
             await askQuestion(
-                `\nBuild folder path (${chalk.blueBright(
+                `\nBuild folder path (${chalk.blue(
                     BuildFolderPath
                 )}) does not exist.\nWould you like to start build process? [ y | n ]: `
             )
@@ -45,7 +45,7 @@ import { NextDeployConfig } from "./types";
             readlineInterface.close();
             process.exit();
         } else if (answer === "y")
-            // Start build process
+            /** Start build process */
             await buildProcess(askToChangeEnvVariables);
     } else await buildProcess(askToChangeEnvVariables);
 
@@ -53,7 +53,7 @@ import { NextDeployConfig } from "./types";
 
     if (!BuildFolderPathStatus) {
         console.log(
-            `\n${chalk.red("ERROR:")} Build folder path (${chalk.blueBright(
+            `\n${chalk.red("ERROR:")} Build folder path (${chalk.blue(
                 BuildFolderPath
             )}) still does not exist. Make sure you have provided proper configuration in ${chalk.greenBright(
                 configFilePath
@@ -66,7 +66,7 @@ import { NextDeployConfig } from "./types";
     await clearFolderContent(DeploymentRepoPath, [".git"]);
     await copyFolderContent(BuildFolderPath, DeploymentRepoPath);
 
-    // Create ".nojekyll" file if it doesn't exist.
+    /** Create ".nojekyll" file if it doesn't exist. */
     if (!isFile(join(DeploymentRepoPath, ".nojekyll"))) {
         writeFileSync(join(DeploymentRepoPath, ".nojekyll"), "");
 
@@ -92,7 +92,7 @@ import { NextDeployConfig } from "./types";
     let push_to_remote_decision;
 
     if (askBeforeCommit) {
-        // Ask if user want to perform git push.
+        /** Ask if user want to perform git push. */
         push_to_remote_decision = (
             await askQuestion(
                 "\nPush changes to the remote repository? [ y | n ]: "
@@ -134,7 +134,7 @@ import { NextDeployConfig } from "./types";
     console.log(
         `\nThank you for using "${chalk.greenBright(
             "@kpverse/deploy-nextjs"
-        )}". Report issues at "${chalk.blueBright(
+        )}". Report issues at "${chalk.blue(
             "https://github.com/kpverse/deploy-nextjs/issues/new"
         )}".\n`
     );
