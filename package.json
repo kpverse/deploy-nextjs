@@ -22,7 +22,12 @@
   "keywords": [
     "KPVERSE",
     "Automation",
-    "NextJS"
+    "NextJS",
+    "Automated Deployment",
+    "Deployment",
+    "GitHub Pages",
+    "Static site generatation",
+    "NextJS Automated Deployment"
   ],
   "author": "Kartavya Patel <patelka2211@gmail.com>",
   "license": "MIT",
