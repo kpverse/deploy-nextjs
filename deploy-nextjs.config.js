@@ -3,7 +3,7 @@ const { config } = require("dotenv");
 config();
 
 /** @type {import("@kpverse/deploy-nextjs").NextDeployConfig} */
-const nextDeployConfig = {
+module.exports = {
     BuildFolderPath: {
         type: "RELATIVE",
         path: "./out",
@@ -15,5 +15,3 @@ const nextDeployConfig = {
     // askBeforeCommit: true,
     // askToChangeEnvVariables: true,
 };
-
-module.exports = nextDeployConfig;

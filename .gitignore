@@ -9,5 +9,3 @@ build
 bin
 
 types
-
-deploy-nextjs.config.test.js
