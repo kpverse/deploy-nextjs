@@ -18,9 +18,7 @@ export async function buildProcess(askToChangeEnvVariables: boolean) {
 
         if (dotenvExists) {
             let decision = (
-                await askQuestion(
-                    "\nDo you want to change any environment variable? [ y | n ]: "
-                )
+                await askQuestion("\nModify environment variables? [y/n]:")
             ).toLowerCase();
 
             while (!["y", "n"].includes(decision))
@@ -30,7 +28,7 @@ export async function buildProcess(askToChangeEnvVariables: boolean) {
 
             if (decision === "y") {
                 console.log(
-                    "\nPlease re-run previous command, after you change environment variables."
+                    "\nPlease rerun the last command after updating the environment variables."
                 );
                 readlineInterface.close();
                 process.exit();
@@ -46,7 +44,7 @@ export async function buildProcess(askToChangeEnvVariables: boolean) {
         console.log(
             `\n${chalk.red(
                 "ERROR:"
-            )} Make sure to run this command from the root of your NextJS project.`
+            )} Please run this command from the root directory of your NextJS project.`
         );
         readlineInterface.close();
         process.exit();

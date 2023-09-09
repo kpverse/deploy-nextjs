@@ -12,13 +12,25 @@ export async function configFileUtility() {
     if (!fileExists) {
         writeFileSync(
             configFilePath,
-            '/** @type {import("@kpverse/deploy-nextjs").NextDeployConfig} */\nmodule.exports = {\n    BuildFolderPath: {\n        type: "RELATIVE",\n        path: "./out",\n    },\n    // DeploymentRepoPath: {\n    //     type: "RELATIVE",\n    //     path: "<TARGET_REPO_PATH>",\n    // },\n    // askBeforeCommit: true,\n    // askToChangeEnvVariables: true,\n};'
+            `/** @type {import("@kpverse/deploy-nextjs").NextDeployConfig} */
+module.exports = {
+        BuildFolderPath: {
+            type: "RELATIVE",
+        path: "./out",
+    },
+    // DeploymentRepoPath: {
+        //     type: "RELATIVE",
+    //     path: "<TARGET_REPO_PATH>",
+    // },
+    // askBeforeCommit: true,
+    // askToChangeEnvVariables: true,
+};`
         );
 
         console.log(
-            `\nA configuration file for "deploy-nextjs" is created at ${chalk.greenBright(
+            `\nA configuration file for "deploy-nextjs" has been created at ${chalk.greenBright(
                 configFilePath
-            )}.\nPlease re-run the previous command after you provide necessary information in the configuration file.`
+            )}.\nPlease rerun the previous command after filling in the necessary information in the configuration file.`
         );
 
         process.exit();
@@ -30,25 +42,40 @@ export async function configFileUtility() {
         askToChangeEnvVariables,
     }: NextDeployConfig = (await import(configFilePath)).default;
 
-    if (DeploymentRepoPath === undefined) {
-        console.log(
-            `\n${chalk.red("ERROR:")} No "${chalk.blue(
-                "DeploymentRepoPath"
-            )}" property provided in "${chalk.greenBright(configFilePath)}".`
-        );
-        process.exit();
-    }
+    let configuration = {
+        DeploymentRepoPath: (function () {
+            if (DeploymentRepoPath === undefined) {
+                console.log(
+                    `\n${chalk.red("ERROR:")} No "${chalk.blue(
+                        "DeploymentRepoPath"
+                    )}" property provided in "${chalk.greenBright(
+                        configFilePath
+                    )}".`
+                );
+                process.exit();
+            }
 
-    let configuration: {
-        DeploymentRepoPath: string;
-        BuildFolderPath: string;
-        askBeforeCommit: boolean;
-        askToChangeEnvVariables: boolean;
-    } = {
-        DeploymentRepoPath:
-            DeploymentRepoPath.type === "RELATIVE"
-                ? resolve(DeploymentRepoPath.path)
-                : DeploymentRepoPath.path,
+            if (typeof DeploymentRepoPath.path === "string")
+                return DeploymentRepoPath.type === "RELATIVE"
+                    ? resolve(DeploymentRepoPath.path)
+                    : DeploymentRepoPath.path;
+
+            console.log(
+                `\nERROR: Missing or improperly provided "${chalk.blue(
+                    "DeploymentRepoPath"
+                )}" property in "${chalk.greenBright(configFilePath)}".
+
+The "${chalk.blue("DeploymentRepoPath")}" property should be defined as follows:
+
+${chalk.blue("DeploymentRepoPath")}: {
+    ${chalk.blue("type")}: <"RELATIVE" | "ABSOLUTE">,
+    ${chalk.blue("path")}: <string>
+}
+`
+            );
+
+            process.exit();
+        })(),
         BuildFolderPath: (function () {
             let newPath = "";
             if (BuildFolderPath === undefined) {
@@ -56,11 +83,11 @@ export async function configFileUtility() {
                 console.log(
                     `\n${chalk.yellowBright(
                         "ATTENTION REQUIRED:"
-                    )} Considering ${chalk.blue(
+                    )} Using ${chalk.blue(
                         newPath
-                    )} as default build folder path. You can change it in config file (${chalk.greenBright(
+                    )} as the default build folder path. You can modify it in the config file at "${chalk.greenBright(
                         configFilePath
-                    )}).`
+                    )}".`
                 );
                 return newPath;
             }
@@ -84,11 +111,13 @@ export async function configFileUtility() {
 
     if (DeploymentRepoStatus === undefined) {
         console.log(
-            `\n${chalk.red("ERROR:")} ${chalk.greenBright(
+            `\n${chalk.red(
+                "ERROR:"
+            )} The deployment repository path ${chalk.greenBright(
                 configuration.DeploymentRepoPath
-            )} does not exist. You can change it in configuration file (${chalk.greenBright(
+            )} does not exist. You can modify it in the configuration file at "${chalk.greenBright(
                 configFilePath
-            )}).`
+            )}".`
         );
         process.exit();
     }
@@ -97,9 +126,9 @@ export async function configFileUtility() {
         console.log(
             `\n${chalk.red("ERROR:")} ${chalk.blue(
                 "DeploymentRepoPath"
-            )} property provided in configuration file (${chalk.greenBright(
+            )} in the configuration file at "${chalk.greenBright(
                 configFilePath
-            )}) is not a repository.`
+            )}" is not a repository.`
         );
         process.exit();
     }
