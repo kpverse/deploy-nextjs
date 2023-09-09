@@ -14,9 +14,9 @@ import { NextDeployConfig } from "./types";
 
 (async function () {
     console.log(
-        `\ndeploy-nextjs v${VERSION} from ${chalk.blue(
-            "KPVERSE (https://kpverse.in)"
-        )}.\nCopyright (c) 2023 - Kartavya Patel.`
+        `\n${chalk.greenBright(
+            `@kpverse/deploy-nextjs@${VERSION}`
+        )} - NextJS Deployment Utility from KPVERSE (https://kpverse.in).\nCopyright © Kartavya Patel - All Rights Reserved.`
     );
 
     let {
@@ -45,7 +45,7 @@ import { NextDeployConfig } from "./types";
             readlineInterface.close();
             process.exit();
         } else if (answer === "y")
-            /** Start build process */
+            //  Start build process
             await buildProcess(askToChangeEnvVariables);
     } else await buildProcess(askToChangeEnvVariables);
 
@@ -53,9 +53,9 @@ import { NextDeployConfig } from "./types";
 
     if (!BuildFolderPathStatus) {
         console.log(
-            `\n${chalk.red("ERROR:")} Build folder path (${chalk.blue(
+            `\n${chalk.red("ERROR:")} The build folder at (${chalk.blue(
                 BuildFolderPath
-            )}) still does not exist. Make sure you have provided proper configuration in ${chalk.greenBright(
+            )}) does not exist. Please ensure you've provided the correct configuration in ${chalk.greenBright(
                 configFilePath
             )}.`
         );
@@ -66,25 +66,23 @@ import { NextDeployConfig } from "./types";
     await clearFolderContent(DeploymentRepoPath, [".git"]);
     await copyFolderContent(BuildFolderPath, DeploymentRepoPath);
 
-    /** Create ".nojekyll" file if it doesn't exist. */
+    //  Create ".nojekyll" file if it doesn't exist.
     if (!isFile(join(DeploymentRepoPath, ".nojekyll"))) {
         writeFileSync(join(DeploymentRepoPath, ".nojekyll"), "");
 
-        let MORE_INFO = `It is necessary for hosting Next.js app on GitHub Pages. Read more: "${chalk.blue(
-            "https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/"
-        )}".`;
-
         console.log(
-            `\n"${chalk.blue(
+            `Created a "${chalk.blue(
                 ".nojekyll"
-            )}" file created at "${chalk.greenBright(
+            )}" file at "${chalk.greenBright(
                 DeploymentRepoPath
-            )}". ${MORE_INFO}`
+            )}" for hosting your NextJS website on GitHub Pages. Learn more: "${chalk.blue(
+                "https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/"
+            )}".`
         );
     }
 
     console.log(
-        `\nAll content of build folder is copied to "${chalk.greenBright(
+        `\nAll build folder content has been copied to "${chalk.greenBright(
             DeploymentRepoPath
         )}".`
     );
@@ -92,7 +90,7 @@ import { NextDeployConfig } from "./types";
     let push_to_remote_decision;
 
     if (askBeforeCommit) {
-        /** Ask if user want to perform git push. */
+        //  Ask if user want to perform git push.
         push_to_remote_decision = (
             await askQuestion(
                 "\nPush changes to the remote repository? [ y | n ]: "
@@ -141,5 +139,3 @@ import { NextDeployConfig } from "./types";
 
     readlineInterface.close();
 })();
-
-export { NextDeployConfig };
