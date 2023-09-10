@@ -16,7 +16,7 @@ import { NextDeployConfig } from "./types";
     console.log(
         `\n${chalk.greenBright(
             `@kpverse/deploy-nextjs@${VERSION}`
-        )} - NextJS Deployment Utility from KPVERSE (https://kpverse.in).\nCopyright © Kartavya Patel - All Rights Reserved.`
+        )} - NextJS Deployment Utility from KPVERSE (https://kpverse.in).\nCopyright © Kartavya Patel, KPVERSE - All Rights Reserved.`
     );
 
     let {

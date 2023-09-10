@@ -31,7 +31,7 @@ export default [
 /**
  * @kpverse/deploy-nextjs@0.1.0 - NextJS Deployment Utility from KPVERSE (https://kpverse.in).
  *
- * Copyright © Kartavya Patel - All Rights Reserved.
+ * Copyright © Kartavya Patel, KPVERSE - All Rights Reserved.
  */`,
         },
     },
