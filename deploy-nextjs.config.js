@@ -4,11 +4,11 @@ config();
 
 /** @type {import("@kpverse/deploy-nextjs").NextDeployConfig} */
 module.exports = {
-    BuildFolderPath: {
+    buildFolderPath: {
         type: "RELATIVE",
         path: "./out",
     },
-    DeploymentRepoPath: {
+    deploymentRepoPath: {
         type: "ABSOLUTE",
         path: process.env.DEPLOYMENT_REPO_PATH,
     },

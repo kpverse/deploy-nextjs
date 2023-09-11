@@ -14,12 +14,12 @@ export async function configFileUtility() {
             configFilePath,
             `/** @type {import("@kpverse/deploy-nextjs").NextDeployConfig} */
 module.exports = {
-        BuildFolderPath: {
+        buildFolderPath: {
             type: "RELATIVE",
         path: "./out",
     },
-    // DeploymentRepoPath: {
-        //     type: "RELATIVE",
+    // deploymentRepoPath: {
+    //     type: "RELATIVE",
     //     path: "<TARGET_REPO_PATH>",
     // },
     // askBeforeCommit: true,
@@ -36,18 +36,18 @@ module.exports = {
         process.exit();
     }
     let {
-        DeploymentRepoPath,
-        BuildFolderPath,
+        deploymentRepoPath,
+        buildFolderPath,
         askBeforeCommit,
         askToChangeEnvVariables,
     }: NextDeployConfig = (await import(configFilePath)).default;
 
     let configuration = {
-        DeploymentRepoPath: (function () {
-            if (DeploymentRepoPath === undefined) {
+        deploymentRepoPath: (function () {
+            if (deploymentRepoPath === undefined) {
                 console.log(
                     `\n${chalk.red("ERROR:")} No "${chalk.blue(
-                        "DeploymentRepoPath"
+                        "deploymentRepoPath"
                     )}" property provided in "${chalk.greenBright(
                         configFilePath
                     )}".`
@@ -55,19 +55,19 @@ module.exports = {
                 process.exit();
             }
 
-            if (typeof DeploymentRepoPath.path === "string")
-                return DeploymentRepoPath.type === "RELATIVE"
-                    ? resolve(DeploymentRepoPath.path)
-                    : DeploymentRepoPath.path;
+            if (typeof deploymentRepoPath.path === "string")
+                return deploymentRepoPath.type === "RELATIVE"
+                    ? resolve(deploymentRepoPath.path)
+                    : deploymentRepoPath.path;
 
             console.log(
                 `\nERROR: Missing or improperly provided "${chalk.blue(
-                    "DeploymentRepoPath"
+                    "deploymentRepoPath"
                 )}" property in "${chalk.greenBright(configFilePath)}".
 
-The "${chalk.blue("DeploymentRepoPath")}" property should be defined as follows:
+The "${chalk.blue("deploymentRepoPath")}" property should be defined as follows:
 
-${chalk.blue("DeploymentRepoPath")}: {
+${chalk.blue("deploymentRepoPath")}: {
     ${chalk.blue("type")}: <"RELATIVE" | "ABSOLUTE">,
     ${chalk.blue("path")}: <string>
 }
@@ -76,9 +76,9 @@ ${chalk.blue("DeploymentRepoPath")}: {
 
             process.exit();
         })(),
-        BuildFolderPath: (function () {
+        buildFolderPath: (function () {
             let newPath = "";
-            if (BuildFolderPath === undefined) {
+            if (buildFolderPath === undefined) {
                 newPath = resolve("./out");
                 console.log(
                     `\n${chalk.yellowBright(
@@ -91,9 +91,9 @@ ${chalk.blue("DeploymentRepoPath")}: {
                 );
                 return newPath;
             }
-            return BuildFolderPath.type === "RELATIVE"
-                ? resolve(BuildFolderPath.path)
-                : BuildFolderPath.path;
+            return buildFolderPath.type === "RELATIVE"
+                ? resolve(buildFolderPath.path)
+                : buildFolderPath.path;
         })(),
         askBeforeCommit:
             askBeforeCommit === undefined ||
@@ -107,14 +107,14 @@ ${chalk.blue("DeploymentRepoPath")}: {
                 : askToChangeEnvVariables,
     };
 
-    let DeploymentRepoStatus = isRepo(configuration.DeploymentRepoPath);
+    let deploymentRepoStatus = isRepo(configuration.deploymentRepoPath);
 
-    if (DeploymentRepoStatus === undefined) {
+    if (deploymentRepoStatus === undefined) {
         console.log(
             `\n${chalk.red(
                 "ERROR:"
             )} The deployment repository path ${chalk.greenBright(
-                configuration.DeploymentRepoPath
+                configuration.deploymentRepoPath
             )} does not exist. You can modify it in the configuration file at "${chalk.greenBright(
                 configFilePath
             )}".`
@@ -122,10 +122,10 @@ ${chalk.blue("DeploymentRepoPath")}: {
         process.exit();
     }
 
-    if (!DeploymentRepoStatus) {
+    if (!deploymentRepoStatus) {
         console.log(
             `\n${chalk.red("ERROR:")} ${chalk.blue(
-                "DeploymentRepoPath"
+                "deploymentRepoPath"
             )} in the configuration file at "${chalk.greenBright(
                 configFilePath
             )}" is not a repository.`

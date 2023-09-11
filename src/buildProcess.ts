@@ -18,7 +18,7 @@ export async function buildProcess(askToChangeEnvVariables: boolean) {
 
         if (dotenvExists) {
             let decision = (
-                await askQuestion("\nModify environment variables? [y/n]:")
+                await askQuestion("\nModify environment variables? [y/n]: ")
             ).toLowerCase();
 
             while (!["y", "n"].includes(decision))

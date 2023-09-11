@@ -20,21 +20,21 @@ import { NextDeployConfig } from "./types";
     );
 
     let {
-        BuildFolderPath,
-        DeploymentRepoPath,
+        buildFolderPath,
         askToChangeEnvVariables,
         configFilePath,
+        deploymentRepoPath,
         askBeforeCommit,
     } = await configFileUtility();
 
-    let BuildFolderPathStatus = checkIfPathExists(BuildFolderPath);
+    let buildFolderPathStatus = checkIfPathExists(buildFolderPath);
 
-    if (!BuildFolderPathStatus) {
+    if (!buildFolderPathStatus) {
         let answer = (
             await askQuestion(
                 `\nBuild folder path (${chalk.blue(
-                    BuildFolderPath
-                )}) does not exist.\nWould you like to start build process? [ y | n ]: `
+                    buildFolderPath
+                )}) does not exist.\nWould you like to start build process? [y/n]: `
             )
         ).toLowerCase();
         while (!["y", "n"].includes(answer))
@@ -49,12 +49,12 @@ import { NextDeployConfig } from "./types";
             await buildProcess(askToChangeEnvVariables);
     } else await buildProcess(askToChangeEnvVariables);
 
-    BuildFolderPathStatus = checkIfPathExists(BuildFolderPath);
+    buildFolderPathStatus = checkIfPathExists(buildFolderPath);
 
-    if (!BuildFolderPathStatus) {
+    if (!buildFolderPathStatus) {
         console.log(
             `\n${chalk.red("ERROR:")} The build folder at (${chalk.blue(
-                BuildFolderPath
+                buildFolderPath
             )}) does not exist. Please ensure you've provided the correct configuration in ${chalk.greenBright(
                 configFilePath
             )}.`
@@ -63,19 +63,19 @@ import { NextDeployConfig } from "./types";
         process.exit();
     }
 
-    await clearFolderContent(DeploymentRepoPath, [".git"]);
-    await copyFolderContent(BuildFolderPath, DeploymentRepoPath);
+    await clearFolderContent(deploymentRepoPath, [".git"]);
+    await copyFolderContent(buildFolderPath, deploymentRepoPath);
 
     //  Create ".nojekyll" file if it doesn't exist.
-    if (!isFile(join(DeploymentRepoPath, ".nojekyll"))) {
-        writeFileSync(join(DeploymentRepoPath, ".nojekyll"), "");
+    if (!isFile(join(deploymentRepoPath, ".nojekyll"))) {
+        writeFileSync(join(deploymentRepoPath, ".nojekyll"), "");
 
         console.log(
             `Created a "${chalk.blue(
                 ".nojekyll"
             )}" file at "${chalk.greenBright(
-                DeploymentRepoPath
-            )}" for hosting your NextJS website on GitHub Pages. Learn more: "${chalk.blue(
+                deploymentRepoPath
+            )}" for hosting your static website on GitHub Pages. Learn more: "${chalk.blue(
                 "https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/"
             )}".`
         );
@@ -83,7 +83,7 @@ import { NextDeployConfig } from "./types";
 
     console.log(
         `\nAll build folder content has been copied to "${chalk.greenBright(
-            DeploymentRepoPath
+            deploymentRepoPath
         )}".`
     );
 
@@ -93,7 +93,7 @@ import { NextDeployConfig } from "./types";
         //  Ask if user want to perform git push.
         push_to_remote_decision = (
             await askQuestion(
-                "\nPush changes to the remote repository? [ y | n ]: "
+                "\nPush changes to the remote repository? [y/n]: "
             )
         ).toLowerCase();
 
@@ -105,7 +105,7 @@ import { NextDeployConfig } from "./types";
         if (push_to_remote_decision === "n")
             console.log(
                 `\nDeployment repository "${chalk.greenBright(
-                    DeploymentRepoPath
+                    deploymentRepoPath
                 )}" is ready for manual commit.`
             );
     }
@@ -115,7 +115,7 @@ import { NextDeployConfig } from "./types";
         (askBeforeCommit && push_to_remote_decision === "y")
     ) {
         let command = [
-            `cd ${DeploymentRepoPath}`,
+            `cd ${deploymentRepoPath}`,
             "git add .",
             `git commit -m "Auto-commit by NextJS Deployment Utility (v${VERSION}) from KPVERSE"`,
             "git push",
