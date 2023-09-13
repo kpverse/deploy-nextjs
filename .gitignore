@@ -9,3 +9,5 @@ build
 bin
 
 types
+
+package-lock.json
