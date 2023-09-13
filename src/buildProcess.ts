@@ -37,14 +37,14 @@ export async function buildProcess(askToChangeEnvVariables: boolean) {
     }
 
     try {
-        console.log("\nRunning NextJS build process...\n");
+        console.log("\nRunning Next JS build process...\n");
         let build_output = execSync("npm run build");
         console.log(`\n${build_output.toString()}`);
     } catch (error) {
         console.log(
             `\n${chalk.red(
                 "ERROR:"
-            )} Please run this command from the root directory of your NextJS project.`
+            )} Please run this command from the root directory of your Next JS project.`
         );
         readlineInterface.close();
         process.exit();

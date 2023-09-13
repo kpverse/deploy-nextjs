@@ -1,16 +1,18 @@
-Coming soon :)
+# Next JS Deployment Utility (v0.1.0) from [KPVERSE](https://kpverse.in/)
 
-<!-- # Deploy NextJS on GitHub Pages with [@kpverse/deploy-nextjs](https://npmjs.com/package/kpverse/deploy-nextjs)
+This release is for testing purpose only. Stable release coming soon. Very soon :)
+
+<!-- # Deploy Next JS on GitHub Pages with [@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs)
 
 ## What is this for?
 
-[@kpverse/deploy-nextjs](https://npmjs.com/package/kpverse/deploy-nextjs) is an npm package to simplify the process of deploying NextJS project on GitHub Pages.
+[@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs) is an npm package to simplify the process of deploying Next JS project on GitHub Pages.
 
 ## How can this benefit developers?
 
--   No need to make NextJS project repository public. Only the deployment repository will b public.
--   No need to create an account on Vercel or Netlify to host NextJS.
--   You can use free and open-source CDNs for content delivery. (For more information read [recommended NextJS configuration](#recommended-nextjs-configuration).)
+1.  No need to make Next JS project repository public. Only the deployment repository will b public.
+1.  No need to create an account on Vercel or Netlify to host Next JS.
+1.  You can use free and open-source CDNs for content delivery. (For more information read [recommended Next JS configuration](#recommended-next-js-configuration).)
 
 ## Is this suitable for beginners?
 
@@ -18,20 +20,20 @@ Yes, it is beginner-friendly and streamlines the deployment process for develope
 
 ## Prerequisites
 
-To use [@kpverse/deploy-nextjs](https://npmjs.com/package/kpverse/deploy-nextjs), your deployment repository must be hosted on GitHub, and GitHub Pages must be enabled.
+To use [@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs), your deployment repository must be hosted on GitHub, and GitHub Pages must be enabled.
 
 ## Installation
 
 You can install this package using pnpm or npm or yarn:
 
 ```bash
-pnpm i @kpverse/deploy-nextjs
+npm i @kpverse/deploy-nextjs
 ```
 
 or
 
 ```bash
-npm i @kpverse/deploy-nextjs
+pnpm i @kpverse/deploy-nextjs
 ```
 
 or
@@ -48,11 +50,11 @@ After installation, simply run the following command to get started:
 npx deploy-nextjs
 ```
 
-## Configuration Options for [@kpverse/deploy-nextjs](https://npmjs.com/package/kpverse/deploy-nextjs)
+## Configuration Options for [@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs)
 
 The package generates a `deploy-nextjs.config.js` file upon first use, allowing you to customize your deployment configurations.
 
-## Recommended NextJS Configuration
+## Recommended Next JS Configuration
 
 ```js
 let GITHUB_USERNAME = "<YOUR_GITHUB_USERNAME>",
@@ -60,16 +62,16 @@ let GITHUB_USERNAME = "<YOUR_GITHUB_USERNAME>",
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Read official docs from NextJS: https://nextjs.org/docs/app/api-reference/next-config-js/basePath
+    // Read official docs from Next JS: https://nextjs.org/docs/app/api-reference/next-config-js/basePath
     basePath: `/${DEPLOYMENT_REPOSITORY_NAME}`,
 
-    // Read official docs from NextJS: https://nextjs.org/docs/app/api-reference/next-config-js/assetPrefix
+    // Read official docs from Next JS: https://nextjs.org/docs/app/api-reference/next-config-js/assetPrefix
     assetPrefix: `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${DEPLOYMENT_REPOSITORY_NAME}@latest/`,
 
-    // Read official docs from NextJS: https://nextjs.org/docs/app/api-reference/next-config-js/output
+    // Read official docs from Next JS: https://nextjs.org/docs/app/api-reference/next-config-js/output
     output: "export",
 
-    // Read official docs from NextJS: https://nextjs.org/docs/app/api-reference/next-config-js/trailingSlash
+    // Read official docs from Next JS: https://nextjs.org/docs/app/api-reference/next-config-js/trailingSlash
     trailingSlash: true,
 };
 
@@ -86,7 +88,7 @@ This package is open-source, and we welcome contributions from the community. Yo
 
 ## Commercial Use
 
-[@kpverse/deploy-nextjs](https://npmjs.com/package/kpverse/deploy-nextjs) is licensed under [the MIT License](./LICENSE). Refer to the [license](./LICENSE) for usage and permissions.
+[@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs) is licensed under [the MIT License](./LICENSE). Refer to the [license](./LICENSE) for usage and permissions.
 
 ## Additional Resources
 
@@ -94,4 +96,4 @@ For a more in-depth understanding, check out our [YouTube video]().
 
 ---
 
-<div align="center"><img src="./kpvrs.svg"/></div> -->
+<div align="center"><a href="https://kpverse.in/"><img src="./kpvrs.svg"/></a></div> -->

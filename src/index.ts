@@ -16,7 +16,7 @@ import { NextDeployConfig } from "./types";
     console.log(
         `\n${chalk.greenBright(
             `@kpverse/deploy-nextjs@${VERSION}`
-        )} - NextJS Deployment Utility from KPVERSE (https://kpverse.in).\nCopyright © Kartavya Patel, KPVERSE - All Rights Reserved.`
+        )} - Next JS Deployment Utility from KPVERSE (https://kpverse.in).\nCopyright © Kartavya Patel, KPVERSE - All Rights Reserved.`
     );
 
     let {
@@ -117,7 +117,7 @@ import { NextDeployConfig } from "./types";
         let command = [
             `cd ${deploymentRepoPath}`,
             "git add .",
-            `git commit -m "Auto-commit by NextJS Deployment Utility (v${VERSION}) from KPVERSE"`,
+            `git commit -m "Auto-commit by Next JS Deployment Utility (v${VERSION}) from KPVERSE"`,
             "git push",
         ].join(" && ");
 
