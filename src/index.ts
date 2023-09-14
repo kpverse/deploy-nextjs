@@ -125,7 +125,15 @@ import { NextDeployConfig } from "./types";
             let output = execSync(command);
             console.log(`\n${output}\n\n✨ Done`);
         } catch (error) {
-            console.log(`\n${error}`);
+            console.log(
+                `\n${chalk.red(
+                    "ERROR: "
+                )} Failed to push commits from ${chalk.greenBright(
+                    deploymentRepoPath
+                )} to the remote repository.\n\n${chalk.yellow(
+                    "DETAILS:"
+                )}\n${error}`
+            );
         }
     }
 
