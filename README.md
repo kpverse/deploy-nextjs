@@ -1,8 +1,6 @@
-# Next JS Deployment Utility (v0.1.0) from [KPVERSE](https://kpverse.in/)
+[![](./kpverse-deploy-nextjs.jpg)](https://kpverse.in/deploy-nextjs/ "Next JS Deployment Utility from KPVERSE")
 
-This release is for testing purpose only. Stable release coming soon. Very soon :)
-
-<!-- # Deploy Next JS on GitHub Pages with [@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs)
+# Deploy Next JS on GitHub Pages with [@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs)
 
 ## What is this for?
 
@@ -24,22 +22,26 @@ To use [@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs
 
 ## Installation
 
+[![npm (scoped)](https://img.shields.io/npm/v/@kpverse/deploy-nextjs)](https://www.npmjs.com/package/@kpverse/deploy-nextjs)
+[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@kpverse/deploy-nextjs)](https://bundlephobia.com/package/@kpverse/deploy-nextjs@0.1.0)
+[![npm](https://img.shields.io/npm/dy/@kpverse/deploy-nextjs)](https://www.npmjs.com/package/@kpverse/deploy-nextjs)
+
 You can install this package using pnpm or npm or yarn:
 
 ```bash
-npm i @kpverse/deploy-nextjs
+npm i @kpverse/deploy-nextjs -D
 ```
 
 or
 
 ```bash
-pnpm i @kpverse/deploy-nextjs
+pnpm i @kpverse/deploy-nextjs -D
 ```
 
 or
 
 ```bash
-yarn add @kpverse/deploy-nextjs
+yarn add @kpverse/deploy-nextjs --dev
 ```
 
 ## Quick Start Guide
@@ -90,10 +92,10 @@ This package is open-source, and we welcome contributions from the community. Yo
 
 [@kpverse/deploy-nextjs](https://npmjs.com/package/@kpverse/deploy-nextjs) is licensed under [the MIT License](./LICENSE). Refer to the [license](./LICENSE) for usage and permissions.
 
-## Additional Resources
+<!-- ## Additional Resources
 
-For a more in-depth understanding, check out our [YouTube video]().
+For a more in-depth understanding, check out our [YouTube video](). -->
 
 ---
 
-<div align="center"><a href="https://kpverse.in/"><img src="./kpvrs.svg"/></a></div> -->
+<div align="center"><a href="https://kpverse.in/"><img src="./copyright.svg"/></a></div>
