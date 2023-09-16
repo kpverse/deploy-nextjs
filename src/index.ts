@@ -116,7 +116,7 @@ import { VERSION } from "./metadata";
         let command = [
             `cd ${deploymentRepoPath}`,
             "git add .",
-            `git commit -m "Auto-commit by Next JS Deployment Automation Tool (v${VERSION}) from KPVERSE"`,
+            `git commit -m "Automated commit by @kpverse's Next JS Deployment Utility (v${VERSION})."`,
             "git push",
         ].join(" && ");
 
@@ -137,11 +137,11 @@ import { VERSION } from "./metadata";
     }
 
     console.log(
-        `\nThank you for using "${chalk.greenBright(
+        `\nThank you for choosing "${chalk.greenBright(
             "@kpverse/deploy-nextjs"
-        )}". Report issues at "${chalk.blue(
+        )}".\nIf you encounter any issues, please don't hesitate to report them at "${chalk.blue(
             "https://github.com/kpverse/deploy-nextjs/issues/new"
-        )}".\n`
+        )}". Your feedback is highly appreciated!`
     );
 
     readlineInterface.close();

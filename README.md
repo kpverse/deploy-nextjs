@@ -86,10 +86,12 @@ This package is open-source, and we welcome contributions from the community. Yo
 
 [@kpverse/deploy-nextjs](https://kpverse.in/deploy-nextjs) is licensed under [the MIT License](./LICENSE). Refer to the [license](./LICENSE) for usage and permissions.
 
-<!-- ## Additional Resources
+## Additional Resources
 
-Read our [Medium blog]() or check out our [YouTube video](https://youtu.be/_PQtajOaq_Y). -->
+Read [Medium blog](https://medium.com/@kpverse/783b31924fc6) about this package.
 
----
+Also check out [YouTube video](https://youtu.be/_PQtajOaq_Y) explaining this package.
+
+[![](https://cdn.jsdelivr.net/gh/kpverse/deploy-nextjs/yt-thumbnail.png)](https://youtu.be/_PQtajOaq_Y).
 
 <div align="center"><a href="https://kpverse.in/"><img src="https://cdn.jsdelivr.net/gh/kpverse/deploy-nextjs/copyright.svg"/></a></div>

@@ -1,6 +1,6 @@
 {
   "name": "@kpverse/deploy-nextjs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Next JS Deployment Automation Tool from KPVERSE.",
   "main": "bin/index.js",
   "types": "types/index.d.ts",
