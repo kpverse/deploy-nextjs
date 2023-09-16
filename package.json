@@ -1,7 +1,7 @@
 {
   "name": "@kpverse/deploy-nextjs",
   "version": "0.1.0",
-  "description": "Next JS Deployment Utility from KPVERSE",
+  "description": "Next JS Deployment Automation Tool from KPVERSE.",
   "main": "bin/index.js",
   "types": "types/index.d.ts",
   "bin": {
@@ -21,11 +21,15 @@
   },
   "keywords": [
     "KPVERSE",
-    "Next JS Deployment Utility",
     "Next JS",
+    "Deployment Automation",
     "Deployment Utility",
+    "Automation",
+    "Utility",
     "GitHub Pages",
-    "Static Site Deployment"
+    "Static Site Deployment",
+    "Next JS Deployment Automation Tool",
+    "Next JS Deployment Utility"
   ],
   "author": "Kartavya Patel <patelka2211@gmail.com>",
   "license": "MIT",

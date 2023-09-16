@@ -29,7 +29,7 @@ export default [
             banner: `#!/usr/bin/env node
 
 /**
- * @kpverse/deploy-nextjs@0.1.0 - Next JS Deployment Utility from KPVERSE (https://kpverse.in).
+ * @kpverse/deploy-nextjs@0.1.0 - Next JS Deployment Automation Tool from KPVERSE (https://kpverse.in).
  *
  * Copyright © Kartavya Patel, KPVERSE - All Rights Reserved.
  */`,

@@ -28,7 +28,9 @@ module.exports = {
         );
 
         console.log(
-            `\nA configuration file for "deploy-nextjs" has been created at ${chalk.greenBright(
+            `\nA configuration file for "${chalk.greenBright(
+                "@kpverse/deploy-nextjs"
+            )}" has been created at ${chalk.greenBright(
                 configFilePath
             )}.\nPlease rerun the previous command after filling in the necessary information in the configuration file.`
         );
