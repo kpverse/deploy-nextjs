@@ -3,10 +3,8 @@ import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join } from "path";
 import { askQuestion, readlineInterface } from "./askQuestion";
-import { buildProcess } from "./buildProcess";
-import { checkIfPathExists } from "./file-utilities/checkIfPathExists";
 import { clearFolderContent } from "./file-utilities/clearFolderContent";
-import { configFileUtility } from "./file-utilities/configFileUtility";
+import { configFileUtility } from "./config-utilities/main";
 import { copyFolderContent } from "./file-utilities/copyFolderContent";
 import { isFile } from "./file-utilities/fileType";
 import { VERSION } from "./metadata";
@@ -20,53 +18,21 @@ import { VERSION } from "./metadata";
 
     let {
         buildFolderPath,
-        askToChangeEnvVariables,
-        configFilePath,
+        // askToChangeEnvVariables,
+        // configFilePath,
         deploymentRepoPath,
         askBeforeCommit,
     } = await configFileUtility();
-
-    let buildFolderPathStatus = checkIfPathExists(buildFolderPath);
-
-    if (!buildFolderPathStatus) {
-        let answer = (
-            await askQuestion(
-                `\nBuild folder path (${chalk.blue(
-                    buildFolderPath
-                )}) does not exist.\nWould you like to start build process? [y/n]: `
-            )
-        ).toLowerCase();
-        while (!["y", "n"].includes(answer))
-            answer = (
-                await askQuestion("\nPlease enter 'y' or 'n': ")
-            ).toLowerCase();
-        if (answer === "n") {
-            readlineInterface.close();
-            process.exit();
-        } else if (answer === "y")
-            //  Start build process
-            await buildProcess(askToChangeEnvVariables);
-    } else await buildProcess(askToChangeEnvVariables);
-
-    buildFolderPathStatus = checkIfPathExists(buildFolderPath);
-
-    if (!buildFolderPathStatus) {
-        console.log(
-            `\n${chalk.red("ERROR:")} The build folder at (${chalk.blue(
-                buildFolderPath
-            )}) does not exist. Please ensure you've provided the correct configuration in ${chalk.greenBright(
-                configFilePath
-            )}.`
-        );
-        readlineInterface.close();
-        process.exit();
-    }
 
     await clearFolderContent(deploymentRepoPath, [".git"]);
     await copyFolderContent(buildFolderPath, deploymentRepoPath);
 
     //  Create ".nojekyll" file if it doesn't exist.
-    if (!isFile(join(deploymentRepoPath, ".nojekyll"))) {
+    let NO_JEKYLL_FILE_STATUS = isFile(join(deploymentRepoPath, ".nojekyll"));
+    if (
+        NO_JEKYLL_FILE_STATUS === "PATH_DO_NOT_EXIST" ||
+        !NO_JEKYLL_FILE_STATUS
+    ) {
         writeFileSync(join(deploymentRepoPath, ".nojekyll"), "");
 
         console.log(

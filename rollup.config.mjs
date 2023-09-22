@@ -13,7 +13,7 @@ export default [
         external: ["chalk", "fs", "path", "readline", "child_process"],
     },
     process.env.reason === "bundling" && {
-        input: "./src/types.ts",
+        input: "./src/types/NextDeployConfig.ts",
         output: {
             file: "./types/index.d.ts",
             format: "es",
@@ -29,7 +29,7 @@ export default [
             banner: `#!/usr/bin/env node
 
 /**
- * @kpverse/deploy-nextjs@0.1.1 - Next JS Deployment Automation Tool from KPVERSE (https://kpverse.in).
+ * @kpverse/deploy-nextjs@0.1.2 - Next JS Deployment Automation Tool from KPVERSE (https://kpverse.in).
  *
  * Copyright © Kartavya Patel, KPVERSE - All Rights Reserved.
  */`,

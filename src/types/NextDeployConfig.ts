@@ -1,7 +1,4 @@
-type PathObj = {
-    type: "ABSOLUTE" | "RELATIVE";
-    path: string;
-};
+import { PathObj } from "./PathObj.type";
 
 export type NextDeployConfig = {
     deploymentRepoPath: PathObj;
