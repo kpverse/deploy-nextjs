@@ -1,9 +1,9 @@
 import { resolve } from "path";
-import { PathObj } from "../types/PathObj.type";
+import { PathObj } from "../../types/PathObj.type";
 import chalk from "chalk";
-import { askQuestion, readlineInterface } from "../askQuestion";
-import { checkIfPathExists } from "../file-utilities/checkIfPathExists";
-import { buildProcess } from "../buildProcess";
+import { askQuestion, readlineInterface } from "../../askQuestion";
+import { checkIfPathExists } from "../../file-utilities/checkIfPathExists";
+import { buildProcess } from "../../buildProcess";
 
 export default async function buildFolderPathValidation(
     buildFolderPath: PathObj | undefined,

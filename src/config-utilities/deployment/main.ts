@@ -1,11 +1,11 @@
 import chalk from "chalk";
 import { writeFileSync } from "fs";
 import { resolve } from "path";
-import { NextDeployConfig } from "../types/NextDeployConfig";
-import { checkIfPathExists } from "../file-utilities/checkIfPathExists";
+import { NextDeployConfig } from "../../types/NextDeployConfig";
+import { checkIfPathExists } from "../../file-utilities/checkIfPathExists";
 import deploymentRepoPathValidation from "./deploymentRepoPathValidation";
 import buildFolderPathValidation from "./buildFolderPathValidation";
-import { readlineInterface } from "../askQuestion";
+import { readlineInterface } from "../../askQuestion";
 
 export async function configFileUtility() {
     let configFilePath = resolve("./deploy-nextjs.config.js"),

@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import { PathObj } from "../types/PathObj.type";
+import { PathObj } from "../../types/PathObj.type";
 import { resolve } from "path";
-import { isRepo } from "../file-utilities/fileType";
-import { readlineInterface } from "../askQuestion";
+import { isRepo } from "../../file-utilities/fileType";
+import { readlineInterface } from "../../askQuestion";
 
 export default function deploymentRepoPathValidation(
     deploymentRepoPath: PathObj,

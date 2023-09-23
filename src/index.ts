@@ -1,13 +1,15 @@
 import chalk from "chalk";
-import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join } from "path";
-import { askQuestion, readlineInterface } from "./askQuestion";
+import { readlineInterface } from "./askQuestion";
 import { clearFolderContent } from "./file-utilities/clearFolderContent";
-import { configFileUtility } from "./config-utilities/main";
+import { configFileUtility } from "./config-utilities/deployment/main";
 import { copyFolderContent } from "./file-utilities/copyFolderContent";
 import { isFile } from "./file-utilities/fileType";
 import { VERSION } from "./metadata";
+import getBasePath from "./config-utilities/nextjs/getBasePath";
+import { checkIfPathExists } from "./file-utilities/checkIfPathExists";
+import pushChangesToRemote from "./pushChangesToRemote";
 
 (async function () {
     console.log(
@@ -16,16 +18,29 @@ import { VERSION } from "./metadata";
         )} - Next JS Deployment Automation Tool from KPVERSE (https://kpverse.in).\nCopyright © Kartavya Patel, KPVERSE - All Rights Reserved.`
     );
 
-    let {
-        buildFolderPath,
-        // askToChangeEnvVariables,
-        // configFilePath,
-        deploymentRepoPath,
-        askBeforeCommit,
-    } = await configFileUtility();
+    let { buildFolderPath, deploymentRepoPath, askBeforeCommit } =
+        await configFileUtility();
 
-    await clearFolderContent(deploymentRepoPath, [".git"]);
-    await copyFolderContent(buildFolderPath, deploymentRepoPath);
+    let basePath = await getBasePath(),
+        destinationPath: string = "";
+
+    if (typeof basePath === "string") {
+        destinationPath = join(deploymentRepoPath, basePath);
+        let basePathStatus = checkIfPathExists(destinationPath);
+
+        if (basePathStatus === "YES") await clearFolderContent(destinationPath);
+    } else if (basePath === undefined) {
+        destinationPath = deploymentRepoPath;
+        await clearFolderContent(destinationPath, [".git"]);
+    }
+
+    await copyFolderContent(buildFolderPath, destinationPath);
+
+    console.log(
+        `\nAll build folder content has been copied to "${chalk.greenBright(
+            destinationPath
+        )}".`
+    );
 
     //  Create ".nojekyll" file if it doesn't exist.
     let NO_JEKYLL_FILE_STATUS = isFile(join(deploymentRepoPath, ".nojekyll"));
@@ -46,68 +61,14 @@ import { VERSION } from "./metadata";
         );
     }
 
-    console.log(
-        `\nAll build folder content has been copied to "${chalk.greenBright(
-            deploymentRepoPath
-        )}".`
-    );
-
-    let push_to_remote_decision;
-
-    if (askBeforeCommit) {
-        //  Ask if user want to perform git push.
-        push_to_remote_decision = (
-            await askQuestion(
-                "\nPush changes to the remote repository? [y/n]: "
-            )
-        ).toLowerCase();
-
-        while (!["y", "n"].includes(push_to_remote_decision))
-            push_to_remote_decision = (
-                await askQuestion("\nPlease enter 'y' or 'n': ")
-            ).toLowerCase();
-
-        if (push_to_remote_decision === "n")
-            console.log(
-                `\nDeployment repository "${chalk.greenBright(
-                    deploymentRepoPath
-                )}" is ready for manual commit.`
-            );
-    }
-
-    if (
-        !askBeforeCommit ||
-        (askBeforeCommit && push_to_remote_decision === "y")
-    ) {
-        let command = [
-            `cd ${deploymentRepoPath}`,
-            "git add .",
-            `git commit -m "Automated commit by @kpverse's Next JS Deployment Utility (v${VERSION})."`,
-            "git push",
-        ].join(" && ");
-
-        try {
-            let output = execSync(command);
-            console.log(`\n${output}\n\n✨ Done`);
-        } catch (error) {
-            console.log(
-                `\n${chalk.red(
-                    "ERROR: "
-                )} Failed to push commits from ${chalk.greenBright(
-                    deploymentRepoPath
-                )} to the remote repository.\n\n${chalk.yellow(
-                    "DETAILS:"
-                )}\n${error}`
-            );
-        }
-    }
+    await pushChangesToRemote(askBeforeCommit, deploymentRepoPath);
 
     console.log(
         `\nThank you for choosing "${chalk.greenBright(
             "@kpverse/deploy-nextjs"
-        )}".\nIf you encounter any issues, please don't hesitate to report them at "${chalk.blue(
+        )}".\n\nIf you encounter any issues, please don't hesitate to report them at "${chalk.blue(
             "https://github.com/kpverse/deploy-nextjs/issues/new"
-        )}". Your feedback is highly appreciated!`
+        )}". Your feedback is highly appreciated!\n`
     );
 
     readlineInterface.close();
