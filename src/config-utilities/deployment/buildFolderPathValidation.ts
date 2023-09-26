@@ -8,7 +8,8 @@ import { buildProcess } from "../../buildProcess";
 export default async function buildFolderPathValidation(
     buildFolderPath: PathObj | undefined,
     configFilePath: string,
-    askToChangeEnvVariables: boolean
+    askToChangeEnvVariables: boolean,
+    runBuildProcess: boolean
 ) {
     let buildFolderPathValue = "";
 
@@ -35,7 +36,9 @@ export default async function buildFolderPathValidation(
             await askQuestion(
                 `\nBuild folder path (${chalk.blue(
                     buildFolderPath
-                )}) does not exist.\nWould you like to start build process? [y/n]: `
+                )}) does not exist.\nWould you like to run ${chalk.greenBright(
+                    "npm run build"
+                )} command? [y/n]: `
             )
         ).toLowerCase();
 
@@ -45,10 +48,32 @@ export default async function buildFolderPathValidation(
             ).toLowerCase();
 
         if (answer === "n") {
+            console.log(
+                `\n${chalk.red("ERROR:")} The build folder at (${chalk.blue(
+                    buildFolderPath
+                )}) does not exist. Please ensure you've provided the correct configuration in ${chalk.greenBright(
+                    configFilePath
+                )}.`
+            );
+
             readlineInterface.close();
             process.exit();
         } else if (answer === "y") await buildProcess(askToChangeEnvVariables);
-    } else await buildProcess(askToChangeEnvVariables);
+    } else {
+        if (runBuildProcess) await buildProcess(askToChangeEnvVariables);
+        else if (!runBuildProcess)
+            console.log(
+                `\n${chalk.yellowBright(
+                    "ATTENTION REQUIRED:"
+                )} The build process is currently disabled due to the ${chalk.greenBright(
+                    "runBuildProcess"
+                )} property being set to ${chalk.greenBright(
+                    "false"
+                )} in the configuration file located at ${chalk.greenBright(
+                    configFilePath
+                )}.`
+            );
+    }
 
     buildFolderPathStatus = checkIfPathExists(buildFolderPathValue);
 

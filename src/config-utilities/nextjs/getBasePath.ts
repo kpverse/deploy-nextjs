@@ -9,7 +9,7 @@ export default async function getBasePath() {
 
     if (nextJSConfigFilePathStatus === "NO") {
         console.log(
-            `${chalk.red("ERROR:")} "${chalk.greenBright(
+            `\n${chalk.red("ERROR:")} "${chalk.greenBright(
                 "next.config.js"
             )}" file not found at ${chalk.blueBright(resolve("./"))}.`
         );

@@ -16,10 +16,11 @@ export async function configFileUtility() {
             configFilePath,
             `/** @type {import("@kpverse/deploy-nextjs").NextDeployConfig} */
 module.exports = {
-        buildFolderPath: {
+    buildFolderPath: {
             type: "RELATIVE",
         path: "./out",
     },
+    runBuildProcess: true,
     // deploymentRepoPath: {
     //     type: "RELATIVE",
     //     path: "<TARGET_REPO_PATH>",
@@ -45,6 +46,7 @@ module.exports = {
         buildFolderPath,
         askBeforeCommit,
         askToChangeEnvVariables,
+        runBuildProcess,
     }: NextDeployConfig = (await import(configFilePath)).default;
 
     const askToChangeEnvVariablesValue =
@@ -53,7 +55,12 @@ module.exports = {
             ? true
             : askToChangeEnvVariables;
 
-    const configuration = {
+    const runBuildProcessValue =
+        runBuildProcess === undefined || typeof runBuildProcess !== "boolean"
+            ? true
+            : runBuildProcess;
+
+    return {
         deploymentRepoPath: deploymentRepoPathValidation(
             deploymentRepoPath,
             configFilePath
@@ -65,17 +72,11 @@ module.exports = {
                 ? true
                 : askBeforeCommit,
 
-        askToChangeEnvVariables: askToChangeEnvVariablesValue,
-
         buildFolderPath: await buildFolderPathValidation(
             buildFolderPath,
             configFilePath,
-            askToChangeEnvVariablesValue
+            askToChangeEnvVariablesValue,
+            runBuildProcessValue
         ),
-    };
-
-    return {
-        configFilePath,
-        ...configuration,
     };
 }

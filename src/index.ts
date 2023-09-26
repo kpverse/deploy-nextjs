@@ -42,7 +42,7 @@ import pushChangesToRemote from "./pushChangesToRemote";
         )}".`
     );
 
-    //  Create ".nojekyll" file if it doesn't exist.
+    //  Create ".nojekyll" file if it does not exist.
     let NO_JEKYLL_FILE_STATUS = isFile(join(deploymentRepoPath, ".nojekyll"));
     if (
         NO_JEKYLL_FILE_STATUS === "PATH_DO_NOT_EXIST" ||
@@ -51,7 +51,7 @@ import pushChangesToRemote from "./pushChangesToRemote";
         writeFileSync(join(deploymentRepoPath, ".nojekyll"), "");
 
         console.log(
-            `Created a "${chalk.blue(
+            `\nCreated a "${chalk.blue(
                 ".nojekyll"
             )}" file at "${chalk.greenBright(
                 deploymentRepoPath
