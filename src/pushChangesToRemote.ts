@@ -10,7 +10,6 @@ export default async function pushChangesToRemote(
     let push_to_remote_decision;
 
     if (askBeforeCommit) {
-        //  Ask if user want to perform git push.
         push_to_remote_decision = (
             await askQuestion(
                 "\nPush changes to the remote repository? [y/n]: "

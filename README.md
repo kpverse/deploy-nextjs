@@ -54,15 +54,18 @@ The package generates a `deploy-nextjs.config.js` file upon first use, allowing 
 // Recommended Next JS Configuration (next.config.js)
 
 let GITHUB_USERNAME = "<YOUR_GITHUB_USERNAME>",
-    DEPLOYMENT_REPOSITORY_NAME = "<DEPLOYMENT_REPOSITORY_NAME>";
+    DEPLOYMENT_REPOSITORY_NAME = "<DEPLOYMENT_REPOSITORY_NAME>",
+    BASE_PATH = "<BASE_PATH>";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     // Read official docs from Next JS: https://nextjs.org/docs/app/api-reference/next-config-js/basePath
-    basePath: `/${DEPLOYMENT_REPOSITORY_NAME}`,
+    // NOTE: It is optional.
+    basePath: `/${BASE_PATH}`,
 
     // Read official docs from Next JS: https://nextjs.org/docs/app/api-reference/next-config-js/assetPrefix
-    assetPrefix: `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${DEPLOYMENT_REPOSITORY_NAME}@latest/`,
+    // NOTE: It is optional.
+    assetPrefix: `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${DEPLOYMENT_REPOSITORY_NAME}@latest/${BASE_PATH}`,
 
     // Read official docs from Next JS: https://nextjs.org/docs/app/api-reference/next-config-js/output
     output: "export",
