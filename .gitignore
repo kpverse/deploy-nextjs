@@ -2,12 +2,10 @@
 
 node_modules
 
-.env
+/build
 
-build
+/bin
 
-bin
-
-types
+/types
 
 package-lock.json
