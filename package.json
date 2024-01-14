@@ -8,8 +8,12 @@
     "deploy-nextjs": "bin/index.js"
   },
   "scripts": {
-    "build-and-run": "node build.js && node ./bin/index.js",
-    "build": "node build.js"
+    "build-and-run": "bun run build && bun run ./bin/index.js",
+    "build": "bun run sub-build1 && bun run sub-build2 && bun run sub-build3 && bun run sub-build4",
+    "sub-build1": "bunx swc ./src -d ./build --config-file config1.swcrc",
+    "sub-build2": "bunx rollup -c --environment reason:bundling",
+    "sub-build3": "bunx swc ./bin/index.js -o ./bin/index.js --config-file config2.swcrc",
+    "sub-build4": "bunx rollup -c --environment reason:license-comment"
   },
   "files": [
     "bin/index.js",
@@ -31,7 +35,10 @@
     "Next JS Deployment Automation Tool",
     "Next JS Deployment Utility"
   ],
-  "author": "Kartavya Patel <patelka2211@gmail.com>",
+  "author": {
+    "name": "Kartavya Patel",
+    "email": "patelka2211@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kpverse/deploy-nextjs/issues"
